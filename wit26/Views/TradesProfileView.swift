@@ -25,6 +25,12 @@ struct TradesProfileView: View {
             Text("About me").font(.title3.bold())
             Text("I have over 10 years of experience in the plumbing industry. I am passionate about ensuring that your pipes are in top condition and that your home is safe and hygienic.")
             Divider()
+            Text("Availability").font(.title3.bold())
+            HStack {
+                Image(systemName: "checkmark.circle").font(.title)
+                Text("Available")
+                
+            }
             Spacer()
         }
         .padding()
