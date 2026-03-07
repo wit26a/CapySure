@@ -12,6 +12,8 @@ struct LoginView: View {
     @State var email = ""
     @State var password = ""
     
+    @EnvironmentObject var env: CapyEnvironment
+    
     var body: some View {
         VStack {
             Image("CapyPhoto")
@@ -26,7 +28,10 @@ struct LoginView: View {
                 CapySecureField(title: "Password", text: $password, systemIcon: "key")
                 Button(action: {
                     let networkConnector = NetworkConnector()
-                    networkConnector.getProfile()
+                    //networkConnector.getProfile()
+                    
+                    env.isSignedIn = true
+                    
                 }, label: {
                     Text("Login")
                 })

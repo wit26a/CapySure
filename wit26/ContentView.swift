@@ -8,8 +8,14 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @EnvironmentObject var env: CapyEnvironment
     var body: some View {
-        LoginView()
+        if env.isSignedIn {
+            JobsView()
+        } else {
+            LoginView()
+        }
     }
 }
 
