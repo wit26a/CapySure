@@ -11,8 +11,9 @@ struct JobsView: View {
     
     @State var searchText = ""
     @State private var selectedTab = 0
-    let items = ["Painter/Decorator", "Electrician", "Plumber", "Gardener", "Mechanic"]
-    let icons = [
+    let jobs = ["Painter/Decorator", "Electrician", "Plumber", "Gardener", "Mechanic"]
+    let errands = ["Mover", "Dog Walker"]
+    let jobIcons = [
         "paintbrush.fill",
         "lightbulb.fill",
         "drop.fill",
@@ -22,24 +23,24 @@ struct JobsView: View {
     var body: some View {
         CapyTextField(title: "Search", text: $searchText, systemIcon: "magnifyingglass")
         Picker("Tabs", selection: $selectedTab) {
-                Text("Jobs").tag(0)
-                Text("Errands").tag(1)
-            }
-            .pickerStyle(.segmented)
-            .padding()
-                    
+            Text("Jobs").tag(0)
+            Text("Errands").tag(1)
+        }
+        .pickerStyle(.segmented)
+        .padding()
+        
         if selectedTab == 0 {
             VStack {
                 NavigationStack{
                     List {
-                        ForEach(items.indices, id: \.self) { index in
-                            NavigationLink(destination: DetailView(job: items[index])) {
+                        ForEach(jobs.indices, id: \.self) { index in
+                            NavigationLink(destination: DetailView(job: jobs[index])) {
                                 HStack {
-                                    Image(systemName: icons[index])
+                                    Image(systemName: jobIcons[index])
                                         .frame(width: 30)
                                         .foregroundColor(.blue)
                                     
-                                    Text(items[index])
+                                    Text(jobs[index])
                                 }
                             }
                         }
@@ -47,32 +48,52 @@ struct JobsView: View {
                     .listStyle(.plain)
                 }
             }
+        } else{
+            VStack {
+                NavigationStack{
+                    List {
+                        ForEach(errands.indices, id: \.self) { index in
+                            NavigationLink(destination: DetailView(job: errands[index])) {
+                                HStack {
+                                    Image(systemName: jobIcons[index])
+                                        .frame(width: 30)
+                                        .foregroundColor(.blue)
+                                    
+                                    Text(errands[index])
+                                }
+                            }
+                        }
+                    }
+                    .listStyle(.plain)
+                }
             }
-    }
-}
-
-struct DetailView: View {
-    let job: String
-
-    var body: some View {
-        VStack {
-            switch job {
-            case "Painter/Decorator":
-                TradeswomenCardView()
-            case "Electrician":
-                Text("Electrician details here")
-            case "Plumber":
-                Text("Plumber details here")
-            case "Gardener":
-                Text("Gardener details here")
-            case "Mechanic":
-                Text("Mechanic details here")
-            default:
-                Text("Unknown job")
-            }
-            Spacer()
         }
-        .navigationTitle(job)
+    }
+    
+    struct DetailView: View {
+        let job: String
+        
+        var body: some View {
+            VStack {
+                switch job {
+                case "Painter/Decorator":
+                    TradeswomenCardView(name: "Joanne", role: "Decorator", distance: 65)
+                    TradeswomenCardView(name: "Lina", role: "Painter", distance: 80)
+                case "Electrician":
+                    Text("Electrician details here")
+                case "Plumber":
+                    Text("Plumber details here")
+                case "Gardener":
+                    Text("Gardener details here")
+                case "Mechanic":
+                    Text("Mechanic details here")
+                default:
+                    Text("Unknown job")
+                }
+                Spacer()
+            }
+            .navigationTitle(job)
+        }
     }
 }
 
