@@ -21,7 +21,7 @@ struct JobsView: View {
         "wrench.and.screwdriver.fill"
     ]
     var body: some View {
-        CapyTextField(title: "Search", text: $searchText, systemIcon: "magnifyingglass")
+        CapyTextField(title: "Search", text: $searchText, systemIcon: "magnifyingglass").padding()
         Picker("Tabs", selection: $selectedTab) {
             Text("Jobs").tag(0)
             Text("Errands").tag(1)
