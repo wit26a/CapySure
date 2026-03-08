@@ -9,6 +9,8 @@ import SwiftUI
 
 struct JobsView: View {
     
+    @EnvironmentObject var env: CapyEnvironment
+    
     @State var searchText = ""
     @State private var selectedTab = 0
     let jobs = ["Painter/Decorator", "Electrician", "Plumber", "Gardener", "Mechanic"]
@@ -21,50 +23,53 @@ struct JobsView: View {
         "wrench.and.screwdriver.fill"
     ]
     var body: some View {
-        CapyTextField(title: "Search", text: $searchText, systemIcon: "magnifyingglass").padding()
-        Picker("Tabs", selection: $selectedTab) {
-            Text("Jobs").tag(0)
-            Text("Errands").tag(1)
-        }
-        .pickerStyle(.segmented)
-        .padding()
-        
-        if selectedTab == 0 {
-            VStack {
-                NavigationStack{
-                    List {
-                        ForEach(jobs.indices, id: \.self) { index in
-                            NavigationLink(destination: DetailView(job: jobs[index])) {
-                                HStack {
-                                    Image(systemName: jobIcons[index])
-                                        .frame(width: 30)
-                                        .foregroundColor(.blue)
-                                    
-                                    Text(jobs[index])
-                                }
-                            }
-                        }
-                    }
-                    .listStyle(.plain)
-                }
+        VStack(alignment: .leading) {
+            CapyTextField(title: "Search", text: $searchText, systemIcon: "magnifyingglass").padding()
+            Text("Hello, \(env.name)! What do you need today?").font(.title.bold()).padding()
+            Picker("Tabs", selection: $selectedTab) {
+                Text("Jobs").tag(0)
+                Text("Errands").tag(1)
             }
-        } else{
-            VStack {
-                NavigationStack{
-                    List {
-                        ForEach(errands.indices, id: \.self) { index in
-                            NavigationLink(destination: DetailView(job: errands[index])) {
-                                HStack {
-                                    Image(systemName: jobIcons[index])
-                                        .frame(width: 30)
-                                        .foregroundColor(.blue)
-                                    
-                                    Text(errands[index])
+            .pickerStyle(.segmented)
+            .padding()
+            
+            if selectedTab == 0 {
+                VStack {
+                    NavigationStack{
+                        List {
+                            ForEach(jobs.indices, id: \.self) { index in
+                                NavigationLink(destination: DetailView(job: jobs[index])) {
+                                    HStack {
+                                        Image(systemName: jobIcons[index])
+                                            .frame(width: 30)
+                                            .foregroundColor(.blue)
+                                        
+                                        Text(jobs[index])
+                                    }
                                 }
                             }
                         }
+                        .listStyle(.plain)
                     }
-                    .listStyle(.plain)
+                }
+            } else{
+                VStack {
+                    NavigationStack{
+                        List {
+                            ForEach(errands.indices, id: \.self) { index in
+                                NavigationLink(destination: DetailView(job: errands[index])) {
+                                    HStack {
+                                        Image(systemName: jobIcons[index])
+                                            .frame(width: 30)
+                                            .foregroundColor(.blue)
+                                        
+                                        Text(errands[index])
+                                    }
+                                }
+                            }
+                        }
+                        .listStyle(.plain)
+                    }
                 }
             }
         }

@@ -12,7 +12,7 @@ struct wit26App: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environmentObject(CapyEnvironment())
+                .environmentObject(CapyEnvironment.shared)
         }
     }
 }

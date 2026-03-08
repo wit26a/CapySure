@@ -8,5 +8,10 @@
 internal import Combine
 
 class CapyEnvironment: ObservableObject {
+    
+    static let shared = CapyEnvironment()
+    
+    var token: String?
     @Published var isSignedIn = false
+    @Published var name = ""
 }

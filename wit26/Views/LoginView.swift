@@ -18,7 +18,9 @@ struct LoginView: View {
         VStack {
             Image("CapyPhoto")
                 .resizable()
-                .aspectRatio(contentMode: .fill)
+                
+                .aspectRatio(contentMode: .fit)
+                .padding(.top, 150)
             VStack(spacing: 20) {
                 
                 Spacer()
@@ -28,9 +30,10 @@ struct LoginView: View {
                 CapySecureField(title: "Password", text: $password, systemIcon: "key")
                 Button(action: {
                     let networkConnector = NetworkConnector()
-                    //networkConnector.getProfile()
+                    networkConnector.login(username: email, password: password)
                     
                     env.isSignedIn = true
+                    
                     
                 }, label: {
                     Text("Login")

@@ -48,7 +48,7 @@ struct TradeswomenCardView: View {
         .padding()
         .background(Color.white)
         .clipShape(RoundedRectangle(cornerRadius: 18))
-        .shadow(radius: 5)
+        .shadow(radius: 2)
         .padding()
     }
 }
